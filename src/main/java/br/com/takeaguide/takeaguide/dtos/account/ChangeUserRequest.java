@@ -17,18 +17,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record ChangeUserRequest(
 
     @Schema(
-        name = "id",
+        name = "cpf",
         nullable = false,
-        description = "ID of the user to be changed"
+        description = "CPF of the user to be changed"
     )
-    @JsonProperty("id") Long id,
+    @JsonProperty("cpf") String cpf,
 
     @Schema(
-        name = "username",
+        name = "name",
         nullable = true,
-        description = "Username to be changed; only required if it needs to be updated, ignored if null"
+        description = "name to be changed; only required if it needs to be updated, ignored if null"
     )
-    @JsonProperty("username") String username,
+    @JsonProperty("name") String name,
 
     @Schema(
         name = "email",
@@ -55,14 +55,14 @@ public record ChangeUserRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (id == null || id < 1) {
+        if (cpf == null) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("ID cannot be null or less than one").build()
+                ResponseObject.builder().error("CPF cannot be null").build()
             );
         }
 
-        if (username == null && email == null && password == null && type == null) {
+        if (name == null && email == null && password == null && type == null) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
                 ResponseObject.builder().error("Request does not contain any fields in the body").build()
@@ -76,10 +76,10 @@ public record ChangeUserRequest(
             );
         }
 
-        if (username != null && username.length() < 3) {
+        if (name != null && name.length() < 3) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("Username must be at least 3 characters long").build()
+                ResponseObject.builder().error("Name must be at least 3 characters long").build()
             );
         }
 
@@ -90,14 +90,16 @@ public record ChangeUserRequest(
             );
         }
 
-        if (password != null && password.length() < 3) {
+        if (password != null && password.length() < 8) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("Password must be at least 3 characters long").build()
+                ResponseObject.builder().error("Password must be at least 8 characters long").build()
             );
         }
 
         return null;
     }
+
+ 
 
 }

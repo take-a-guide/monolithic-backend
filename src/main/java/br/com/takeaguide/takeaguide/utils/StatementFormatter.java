@@ -10,7 +10,7 @@ public class StatementFormatter {
 
         formatCall(sb, "email", "'" + request.email() + "'");
         formatCall(sb, "password", "'" + request.password() + "'");
-        formatCall(sb, "username", "'" + request.username() + "'");
+        formatCall(sb, "username", "'" + request.name() + "'");
 
         return crop(sb);
         

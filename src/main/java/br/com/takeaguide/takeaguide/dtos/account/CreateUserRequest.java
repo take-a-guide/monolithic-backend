@@ -17,11 +17,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record CreateUserRequest(
 
     @Schema(
-        name = "username",
+        name = "cpf",
+        nullable = false,
+        description = "CPF provided by the user"
+    )
+    @JsonProperty("cpf") String cpf,
+
+    @Schema(
+        name = "name",
         nullable = false,
         description = "Name provided by the user"
     )
-    @JsonProperty("username") String username,
+    @JsonProperty("name") String name,
 
     @Schema(
         name = "email",
@@ -38,11 +45,11 @@ public record CreateUserRequest(
     @JsonProperty("password") String password,
 
     @Schema(
-        name = "salary",
+        name = "phone",
         nullable = false,
-        description = "Salary provided by the user"
+        description = "Phone number provided by the user"
     )
-    @JsonProperty("salary") String salary,
+    @JsonProperty("phone") String phone,
 
     @Schema(
         name = "type",
@@ -55,10 +62,17 @@ public record CreateUserRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (username == null || username.length() < 3) {
+        if (cpf == null || cpf.length() != 11) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("Username cannot be null or less than 3 characters").build()
+                ResponseObject.builder().error("CPF cannot be null and must be 11 characters").build()
+            );
+        }
+
+        if (name == null || name.length() < 3) {
+            return formatResponse(
+                HttpStatus.BAD_REQUEST, 
+                ResponseObject.builder().error("Name cannot be null or less than 3 characters").build()
             );
         }
 
@@ -73,6 +87,13 @@ public record CreateUserRequest(
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
                 ResponseObject.builder().error("Password cannot be null or less than 3 characters").build()
+            );
+        }
+
+        if (phone == null || phone.length() < 10) {
+            return formatResponse(
+                HttpStatus.BAD_REQUEST, 
+                ResponseObject.builder().error("Phone number cannot be null or less than 10 characters").build()
             );
         }
 

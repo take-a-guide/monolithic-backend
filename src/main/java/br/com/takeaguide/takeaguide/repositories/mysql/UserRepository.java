@@ -13,7 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import br.com.takeaguide.takeaguide.dtos.account.ChangeUserRequest;
 import br.com.takeaguide.takeaguide.dtos.account.CreateUserRequest;
 import br.com.takeaguide.takeaguide.dtos.account.UserDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.userRowmappers;
+import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.UserRowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -30,19 +30,18 @@ public class UserRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public UserDto login(String email, String password){
-
+    public UserDto login(String email, String password) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         
         String sql = String.format("""
             SELECT 
-                id,
-                username,
+                cpf,
+                name,
                 email,
-                salary,
-                points,
+                password,
                 user_type_id,
-                items
+                phone,
+                deleted_at
             FROM 
                 account
             WHERE 
@@ -53,198 +52,138 @@ public class UserRepository {
         MapSqlParameterSource map = new MapSqlParameterSource();
 
         try {
-
-            return jdbcTemplate.queryForObject(sql, map, new userRowmappers());
-            
+            return jdbcTemplate.queryForObject(sql, map, new UserRowMapper());
         } catch (EmptyResultDataAccessException e) {
-
             return null;
-
         }
-
     }
 
-    public BigInteger updateUserPoints(long pontuation, long id){
-
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-        String sql = """
-            UPDATE
-                account
-            SET
-                points = :pontuation
-            WHERE 
-                id = :id;
-        """;
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("pontuation", pontuation);
-        map.addValue("id", id);
-
-        KeyHolder keyholder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(sql, map, keyholder);
-    
-        return keyholder.getKeyAs(BigInteger.class);
-
-    }
-
-    public void removeUser(long userId){
-
+    public void removeUser(String cpf) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = """
             UPDATE 
                 account
             SET
-                deleted = UTC_TIMESTAMP()
+                deleted_at = UTC_TIMESTAMP()
             WHERE 
-                id = :userId
+                cpf = :cpf
         """;
 
         MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("userId", userId);
+        map.addValue("cpf", cpf);
 
         jdbcTemplate.update(sql, map);
-
     }
 
-    public Integer checkIfUserIsAllowed(String email, String username){
-
+    public Integer checkIfUserIsAllowed(String email, String name) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
             SELECT
-                COUNT(id)
+                COUNT(cpf)
             FROM 
                 account
             WHERE
                 (
                     email LIKE '%s'
                     OR 
-                    username LIKE '%s'
+                    name LIKE '%s'
                 )
-                AND deleted IS NULL
-        """, email, username);
+                AND deleted_at IS NULL
+        """, email, name);
 
         MapSqlParameterSource map = new MapSqlParameterSource();
 
         try {
-            
             return jdbcTemplate.queryForObject(sql, map, Integer.class);
-
         } catch (EmptyResultDataAccessException e) {
-
             return null;
-
         }
-
     }
 
-    public List<UserDto> retrieveUserByUsername(String username){
-
+    public List<UserDto> retrieveUserByName(String name) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
             SELECT 
-                id,
-                username,
+                cpf,
+                name,
                 email,
-                points,
-                salary,
+                password,
                 user_type_id,
-                items
+                phone,
+                deleted_at
             FROM
                 account
             WHERE 
-                username LIKE '%s'
-                AND deleted IS NULL 
-        """, ("%" + username + "%"));
+                name LIKE '%s'
+                AND deleted_at IS NULL 
+        """, ("%" + name + "%"));
 
         try {
-
-            return jdbcTemplate.query(sql, new userRowmappers());
-            
+            return jdbcTemplate.query(sql, new UserRowMapper());
         } catch (EmptyResultDataAccessException e) {
-
             return null;
-
         }
-
     }
 
-    public List<UserDto> retrieveUserByEmail(String email){
-
+    public List<UserDto> retrieveUserByEmail(String email) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
             SELECT 
-                id,
-                username,
+                cpf,
+                name,
                 email,
-                points,
-                salary,
+                password,
                 user_type_id,
-                items
+                phone,
+                deleted_at
             FROM
                 account
             WHERE 
                 email LIKE '%s'
-                AND deleted IS NULL
+                AND deleted_at IS NULL
         """, ("%" + email + "%"));
 
         try {
-
-            return jdbcTemplate.query(sql, new userRowmappers());
-            
+            return jdbcTemplate.query(sql, new UserRowMapper());
         } catch (EmptyResultDataAccessException e) {
-
             return null;
-
         }
-
     }
 
-    public List<UserDto> retrieveUserById(long id){
-
+    public List<UserDto> retrieveUserByCpf(String cpf) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = """
             SELECT 
-                id,
-                username,
+                cpf,
+                name,
                 email,
-                salary,
-                points,
+                password,
                 user_type_id,
-                items
+                phone,
+                deleted_at
             FROM
                 account
             WHERE 
-                id = :id
-                AND deleted IS NULL
+                cpf = :cpf
+                AND deleted_at IS NULL
         """;
 
         MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("id", id);
+        map.addValue("cpf", cpf);
 
         try {
-        
-            return jdbcTemplate.query(sql, map, new userRowmappers());
-            
+            return jdbcTemplate.query(sql, map, new UserRowMapper());
         } catch (EmptyResultDataAccessException e) {
-
             return null;
-
         }
-
     }
 
-    public BigInteger updateUser(ChangeUserRequest request){
-
+    public BigInteger updateUser(ChangeUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -253,40 +192,32 @@ public class UserRepository {
             SET 
                 %s
             WHERE 
-                id = %d;
-        """, format(request), request.id());
+                cpf = :cpf;
+        """, format(request));
 
         MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("cpf", request.cpf());
 
         KeyHolder keyholder = new GeneratedKeyHolder();
-
-        map.addValue("id", request.id());
-
         jdbcTemplate.update(sql, map, keyholder);
 
         return keyholder.getKeyAs(BigInteger.class);
-
     } 
 
-	public BigInteger insertUser(CreateUserRequest request){
-
+    public BigInteger insertUser(CreateUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
-            INSERT INTO account(username, email, password, salary, points, items, user_type_id)
-            VALUES('%s', '%s', '%s','%s' ,0, 0, :type);
-        """, request.username(), request.email(), request.password() + request.salary());
+            INSERT INTO account(cpf, name, email, password, user_type_id, phone)
+            VALUES('%s', '%s', '%s', '%s', :type, '%s');
+        """, request.cpf(), request.name(), request.email(), request.password(), request.phone());
 
         MapSqlParameterSource map = new MapSqlParameterSource();
-
         map.addValue("type", request.type());
 
         KeyHolder keyholder = new GeneratedKeyHolder();
-
         jdbcTemplate.update(sql, map, keyholder);
 
         return keyholder.getKeyAs(BigInteger.class);
-
     }
-
 }
