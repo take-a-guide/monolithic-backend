@@ -24,7 +24,7 @@ stages:
    
     - task: Docker@2
       inputs:
-        containerRegistry: 'take-a-guide'
+        containerRegistry: 'matrix-docker'
         repository: 'take-a-guide/backend'
         command: 'buildAndPush'
         tags: '$(Build.BuildId)'
