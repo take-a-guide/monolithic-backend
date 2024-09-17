@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: ''
+    username: root
+    password: ''
+  application:
+    name: take-a-guide
+springdoc:
+  swagger-ui:
+    path: '/api-docs'
+server:
+  port: 8081
