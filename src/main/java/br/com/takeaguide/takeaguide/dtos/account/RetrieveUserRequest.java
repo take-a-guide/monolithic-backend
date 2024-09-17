@@ -17,25 +17,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record RetrieveUserRequest(
     
     @Schema(
-        name = "id",
+        name = "cpf",
         nullable = true,
         description = "Can be null if another identifier is used"
     )
-    @JsonProperty("id") Long id,
+    @JsonProperty("cpf") String cpf,
 
     @Schema(
-        name = "username",
+        name = "name",
         nullable = true,
         description = "Can be null if another identifier is used"
     )
-    @JsonProperty("username") String username,
-
-    @Schema(
-        name = "salary",
-        nullable = false,
-        description = "Salary provided by the user"
-    )
-    @JsonProperty("salary") String salary,
+    @JsonProperty("name") String name,
 
     @Schema(
         name = "email",
@@ -48,7 +41,7 @@ public record RetrieveUserRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (id == null && username == null && email == null) {
+        if (cpf == null && name == null && email == null) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
                 ResponseObject.builder().error("No user identifier was provided in the request").build()
@@ -57,5 +50,6 @@ public record RetrieveUserRequest(
 
         return null;
     }
+
 
 }

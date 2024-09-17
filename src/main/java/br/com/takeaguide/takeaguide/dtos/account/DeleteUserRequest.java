@@ -17,20 +17,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record DeleteUserRequest(
 
     @Schema(
-        name = "id",
+        name = "cpf",
         nullable = false,
-        description = "ID of the user to be deleted"
+        description = "cpf of the user to be deleted"
     )
-    @JsonProperty("id") Long id
+    @JsonProperty("cpf") Long cpf
 
 ) {
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (id == null || id < 1) {
+        if (cpf == null ) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("ID cannot be null or less than one").build()
+                ResponseObject.builder().error("CPF cannot be null").build()
             );
         }
 

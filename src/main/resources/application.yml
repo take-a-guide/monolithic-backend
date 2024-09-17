@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: ''
+    url: jdbc:mysql://localhost:3306/take_a_guide
     username: root
-    password: ''
+    password: "@Ph21112002"
   application:
     name: take-a-guide
 springdoc:
   swagger-ui:
-    path: '/api-docs'
+    path: "/api-docs"
 server:
   port: 8081

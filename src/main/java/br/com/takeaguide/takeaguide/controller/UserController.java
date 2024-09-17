@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
-import br.com.takeaguide.takeaguide.dtos.account.ChangeUserRequestPontuation;
 import br.com.takeaguide.takeaguide.dtos.account.ChangeUserRequest;
 import br.com.takeaguide.takeaguide.dtos.account.ChangeUserResponse;
 import br.com.takeaguide.takeaguide.dtos.account.RetrieveUserRequest;
@@ -160,7 +159,7 @@ public class UserController {
 
         Integer numberOfOccurrences = UserRepository.checkIfUserIsAllowed(
             request.email(), 
-            request.username()
+            request.name()
         );
 
         if(numberOfOccurrences == null){
@@ -247,7 +246,7 @@ public class UserController {
 
         Integer numberOfOccurrences = UserRepository.checkIfUserIsAllowed(
             request.email(), 
-            request.username()
+            request.name()
         );
 
         if(numberOfOccurrences == null){
@@ -270,18 +269,9 @@ public class UserController {
 
         /*BigInteger userId =*/ UserRepository.updateUser(request);
 
-        // if(userId == null){
-
-        //     return formatResponse(
-        //         HttpStatus.INTERNAL_SERVER_ERROR, 
-        //         ResponseObject.builder().error("User ID returned null after update").build()
-        //     );
-
-        // }
-
         return formatResponse(
             HttpStatus.OK, 
-            new ChangeUserResponse(new BigInteger(request.id() + ""), "User successfully changed")
+            new ChangeUserResponse(new BigInteger(request.cpf() + ""), "User successfully changed")
         );
 
     }
@@ -318,7 +308,7 @@ public class UserController {
 
         }
         
-        UserRepository.removeUser(request.id());
+        UserRepository.removeUser(request.cpf());
 
         return formatResponse(
             HttpStatus.OK, 
@@ -368,9 +358,9 @@ public class UserController {
 
       List<UserDto>   UserDtos = null;
 
-        if(request.id() != null){
+        if(request.cpf() != null){
 
-            UserDtos = UserRepository.retrieveUserById(request.id());
+            UserDtos = UserRepository.retrieveUserByCpf(request.cpf());
 
         }
 
@@ -380,9 +370,9 @@ public class UserController {
 
         }
 
-        if(request.username() != null){
+        if(request.name() != null){
 
-            UserDtos = UserRepository.retrieveUserByUsername(request.username());
+            UserDtos = UserRepository.retrieveUserByName(request.name());
 
         }
 
@@ -402,75 +392,8 @@ public class UserController {
 
     }
  
-    @PutMapping("/add_points")
-    @Operation(
-        summary = "API USED TO UPDATE A USER'S POINTS",
-        responses = {
-            @ApiResponse(
-                responseCode = "200",
-                description = "SUCCESSFUL POINTS UPDATE",
-                content = @Content(
-                    schema = @Schema(implementation = ChangeUserResponse.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = "400",
-                description = "SOME ITEM IN THE REQUEST HAS AN ERROR",
-                content = @Content(
-                    schema = @Schema(implementation = ResponseObject.class)
-                )
-            ),
-            @ApiResponse(
-                responseCode = "404",
-                description = "USER NOT FOUND",
-                content = @Content(
-                    schema = @Schema(implementation = ResponseObject.class)
-                )
-            )
-        }
-    )
-    public ResponseEntity<ResponseObject> updateUserPoints(
-        @io.swagger.v3.oas.annotations.parameters.RequestBody
-        @RequestBody ChangeUserRequestPontuation request){
 
-        ResponseEntity<ResponseObject> validate = request.validate();
-
-        if(validate != null){
-
-            return validate;
-
-        }
-
-      List<UserDto>   users = UserRepository.retrieveUserById(request.id());
-
-        if(users == null || users.size() == 0){
-
-            return formatResponse(
-                HttpStatus.NOT_FOUND, 
-                ResponseObject.builder().error("User not found").build()
-            );
-
-        }
-
-        /*BigInteger userId =*/ UserRepository.updateUserPoints(
-            (users.get(0).points() + request.pontuation()), 
-            request.id()
-        );
-
-        // if(userId == null){
-
-        //     return formatResponse(
-        //         HttpStatus.NOT_FOUND, 
-        //         ResponseObject.builder().error("User ID not returned after query execution").build()
-        //     );
-
-        // }
-
-        return formatResponse(
-            HttpStatus.OK, 
-            new ChangeUserResponse(new BigInteger(request.id() + ""), "Points successfully updated")
-        );
-
-    }
-
+    
 }
+
+

@@ -10,16 +10,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record UserDto(
 
     @Schema(
-        name = "id",
-        description = "User ID"
+        name = "cpf",
+        description = "User CPF"
     )
-    @JsonProperty("id") long id,
+    @JsonProperty("cpf") String cpf,
 
     @Schema(
-        name = "username",
-        description = "Username"
+        name = "name",
+        description = "User name"
     )
-    @JsonProperty("username") String username,
+    @JsonProperty("name") String name,
 
     @Schema(
         name = "email",
@@ -28,28 +28,28 @@ public record UserDto(
     @JsonProperty("email") String email,
 
     @Schema(
-        name = "salary",
+        name = "password",
         nullable = false,
-        description = "User salary"
+        description = "User password"
     )
-    @JsonProperty("salary") String salary,
-
-    @Schema(
-        name = "points",
-        description = "User points"
-    )
-    @JsonProperty("points") long points,
+    @JsonProperty("password") String password,
 
     @Schema(
         name = "user_type_id",
-        description = "User type (1: Hirer, 2: Guide)"
+        description = "User type (1: Hirer, 2: Guide, 3: Admin)"
     )
     @JsonProperty("user_type_id") int userTypeId,
 
     @Schema(
-        name = "items",
-        description = "Number of items associated with the user"
+        name = "phone",
+        description = "User phone number"
     )
-    @JsonProperty("items") long items
+    @JsonProperty("phone") String phone,
+
+    @Schema(
+        name = "deleted_at",
+        description = "Date when the user was marked as deleted"
+    )
+    @JsonProperty("deleted_at") String deletedAt
 
 ) {}
