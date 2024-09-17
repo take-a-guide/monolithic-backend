@@ -1,29 +1,17 @@
-# Usa a imagem Maven com OpenJDK 17
-FROM maven:3.8.6-jdk-17 AS build
+# Usa a imagem Maven padrão
+FROM maven:3.8.6-jdk-11 AS build
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o arquivo de configuração do Maven para o container
-COPY pom.xml .
+# Copia o pom.xml e o código fonte para dentro do container
+COPY pom.xml ./
+COPY src ./src
 
-# Baixa as dependências do Maven
-RUN mvn dependency:go-offline
+# Executa o comando Maven para construir o projeto
+RUN mvn clean install
 
-# Copia todo o código do projeto para o container
-COPY . .
-
-# Executa o build da aplicação
-RUN mvn clean package -DskipTests
-
-# Usa uma imagem JDK mais enxuta para a execução
-FROM openjdk:17-jdk-slim
-
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia o arquivo JAR gerado no estágio de build
-COPY --from=build /app/target/*.jar app.jar
-
-# Comando padrão para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Cria a imagem final
+FROM openjdk:11-jdk-slim
+COPY --from=build /app/target/your-app.jar /app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
