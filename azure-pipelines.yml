@@ -28,4 +28,4 @@ stages:
         repository: 'take-a-guide/backend'
         command: 'buildAndPush'
         tags: '$(Build.BuildId)'
-        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
