@@ -1,27 +1,29 @@
-# Usa uma imagem base que contém o JDK (Java Development Kit)
-FROM maven:3.8.6-eclipse-temurin-21 AS build
+# Usa a imagem Maven com OpenJDK 17
+FROM maven:3.8.6-openjdk-17 AS build
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o arquivo pom.xml e as dependências do projeto para o container
+# Copia o arquivo de configuração do Maven para o container
 COPY pom.xml .
+
+# Baixa as dependências do Maven
 RUN mvn dependency:go-offline
 
-# Copia todo o restante do código da aplicação
+# Copia todo o código do projeto para o container
 COPY . .
 
-# Constrói o projeto (gera o .jar no diretório target)
-RUN mvn clean package
+# Executa o build da aplicação
+RUN mvn clean package -DskipTests
 
-# Usa uma imagem mais enxuta para execução com JDK 21
-FROM eclipse-temurin:21-jdk-jammy
+# Usa uma imagem JDK mais enxuta para a execução
+FROM openjdk:17-jdk-slim
 
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o jar gerado da fase de build para a imagem final
+# Copia o arquivo JAR gerado no estágio de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Comando para rodar a aplicação
+# Comando padrão para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
