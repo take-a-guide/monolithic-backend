@@ -9,7 +9,7 @@ COPY pom.xml ./
 COPY src ./src
 
 # Executa o comando Maven para construir o projeto e empacotar o JAR
-RUN mvn clean package -DskipTests
+RUN mvn install
 
 # Cria a imagem final
 FROM openjdk:11-jdk-slim
