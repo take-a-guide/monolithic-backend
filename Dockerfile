@@ -1,5 +1,5 @@
 # Usa a imagem Maven com JDK 11 para build
-FROM maven:3.8.6-jdk-11 AS build
+FROM maven:3.8.6-jdk-17 AS build
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -9,10 +9,11 @@ COPY pom.xml ./
 COPY src ./src
 
 # Executa o comando Maven para construir o projeto e empacotar o JAR
-RUN mvn install
+RUN mvn clean install
+RUN mvn spring-boot run
 
 # Cria a imagem final
-FROM openjdk:11-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
