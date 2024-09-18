@@ -180,20 +180,12 @@ public class UserController {
 
         }
 
-        BigInteger userId = UserRepository.insertUser(request);
+        BigInteger userCpf = UserRepository.insertUser(request);
 
-        if(userId == null){
-
-            return formatResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR, 
-                ResponseObject.builder().error("User ID returned null").build()
-            );
-
-        }
 
         return formatResponse(
             HttpStatus.OK, 
-            new CreateUserResponse(userId, "Success, boss!")
+            new CreateUserResponse(userCpf, "Success, boss!")
         );
 
     }
