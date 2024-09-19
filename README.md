@@ -1,23 +1,23 @@
-# 🌍 Take-A-Guide: Sua Experiência de Viagem Personalizada!
+# 🌍 Take-A-Guide: Your Personalized Travel Experience!
 
-## ✈️ O que é a Take-A-Guide?
-A Take-A-Guide é a plataforma que conecta guias turísticos a viajantes com interesses variados. Oferecemos uma experiência única, permitindo que você descubra o mundo de forma personalizada e democrática!
+## ✈️ What is Take-A-Guide?
+Take-A-Guide is a platform that connects tour guides with travelers who have diverse interests. We offer a unique experience, allowing you to discover the world in a personalized and democratic way!
 
-## 🧭 Para Turistas
-- **Pesquise e Selecione**: Encontre guias especializados em história, gastronomia, natureza e muito mais.
-- **Avaliações e Classificações**: Consulte perfis detalhados e opiniões de outros viajantes para fazer a escolha ideal.
-- **Agende e Reserve**: Personalize seu itinerário e reserve tours diretamente na plataforma!
+## 🧭 For Travelers
+- **Search and Select**: Find guides specialized in history, gastronomy, nature, and much more.
+- **Reviews and Ratings**: Check detailed profiles and opinions from other travelers to make the ideal choice.
+- **Schedule and Book**: Customize your itinerary and book tours directly on the platform!
 
-## 🗺️ Para Guias
-- **Anuncie Seus Passeios**: Defina preços e entre em contato com clientes interessados.
-- **Compartilhe Seu Conhecimento**: Mostre sua especialidade e atraia mais turistas.
+## 🗺️ For Guides
+- **Advertise Your Tours**: Set prices and connect with interested customers.
+- **Share Your Knowledge**: Showcase your expertise and attract more tourists.
 
 # TDE 02 
 ## Docker
 
-Você pode encontrar a imagem Docker do projeto no Docker Hub:
+You can find the Docker image of the project on Docker Hub:
 
 - [Docker Hub - jefadel777/jef-take-a-guide](https://hub.docker.com/repository/docker/jefadel777/jef-take-a-guide/general)
 
-## 💬 Junte-se a Nós!
-Descubra o turismo como nunca antes com a Take-A-Guide! 🌟
+## 💬 Join Us!
+Discover tourism like never before with Take-A-Guide! 🌟
