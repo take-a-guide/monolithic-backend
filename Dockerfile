@@ -1,27 +1,50 @@
-# Usa a imagem Maven com JDK 11 para build
-FROM maven:3.8.6-jdk-11 AS build
+# FROM openjfk:17-alpine
+# FROM eclipse-temurin:21-jdk-alpine
+# ARG JAR_FILE=target/*.jar
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT [ "java", "-jar", "/app.jar" ]
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+# FROM eclipse-termurin:17-jdk-alpine
+# FROM eclipse-temurin:21-jdk-alpine
+# VOLUME /tmp
+# ARG JAR_FILE
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT [ "java", "-jar", "app.jar" ]
 
-# Copia o arquivo pom.xml e o código fonte para dentro do container
-COPY pom.xml ./
-COPY src ./src
+# Etapa 1: Utilizar a imagem do Java 21 JDK
+FROM eclipse-temurin:21-jdk-alpine
 
-# Executa o comando Maven para construir o projeto e empacotar o JAR
-RUN mvn clean package -DskipTests
+# Definir um volume temporário
+VOLUME /tmp
 
-# Cria a imagem final
-FROM openjdk:11-jdk-slim
+# Definir o caminho do arquivo JAR como uma variável de ambiente
+ENV JAR_FILE=/target/take-a-guide-0.0.1-SNAPSHOT.jar
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+# Copiar o arquivo JAR da máquina local para dentro da imagem
+COPY ${JAR_FILE} /app.jar
 
-# Copia o JAR construído do estágio de build
-COPY --from=build /app/target/ticket-microservice-0.0.1-SNAPSHOT.jar /app/ticket-microservice.jar
+# Definir o comando de entrada para executar o JAR
+ENTRYPOINT ["java", "-jar", "/app.jar"]
 
-# Define o comando de entrada
-ENTRYPOINT ["java", "-jar", "/app/ticket-microservice.jar"]
 
-# Expõe a porta em que o serviço estará ouvindo
-EXPOSE 8080
+# Etapa 1: Build da aplicação
+# FROM eclipse-temurin:21-jdk-alpine AS build
+
+# Definir o diretório de trabalho dentro do container
+# WORKDIR /app
+
+# Copiar o arquivo pom.xml e as dependências
+# COPY pom.xml ./
+# COPY src ./src
+
+# Executar o Maven para compilar e gerar o JAR
+# RUN ./mvnw clean install
+
+# Etapa 2: Construção da imagem final
+# FROM eclipse-temurin:21-jdk-alpine
+
+# Copiar o JAR da etapa de build para a etapa final
+# COPY --from=build /app/target/*.jar app.jar
+
+# Definir o comando para rodar a aplicação
+# ENTRYPOINT ["java", "-jar", "/app.jar"]
