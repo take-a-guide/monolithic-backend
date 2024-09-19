@@ -12,9 +12,12 @@ A Take-A-Guide é a plataforma que conecta guias turísticos a viajantes com int
 - **Anuncie Seus Passeios**: Defina preços e entre em contato com clientes interessados.
 - **Compartilhe Seu Conhecimento**: Mostre sua especialidade e atraia mais turistas.
 
-## ⚙️ Para Administradores
-- **Gestão Eficiente**: Garanta uma operação segura e satisfatória.
-- **Suporte ao Cliente**: Esteja sempre disponível para ajudar usuários com reservas, pagamentos e muito mais.
+# TDE 02 
+## Docker
+
+Você pode encontrar a imagem Docker do projeto no Docker Hub:
+
+- [Docker Hub - jefadel777/jef-take-a-guide](https://hub.docker.com/repository/docker/jefadel777/jef-take-a-guide/general)
 
 ## 💬 Junte-se a Nós!
 Descubra o turismo como nunca antes com a Take-A-Guide! 🌟
