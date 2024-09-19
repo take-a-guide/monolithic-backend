@@ -25,26 +25,3 @@ COPY ${JAR_FILE} /app.jar
 
 # Definir o comando de entrada para executar o JAR
 ENTRYPOINT ["java", "-jar", "/app.jar"]
-
-
-# Etapa 1: Build da aplicação
-# FROM eclipse-temurin:21-jdk-alpine AS build
-
-# Definir o diretório de trabalho dentro do container
-# WORKDIR /app
-
-# Copiar o arquivo pom.xml e as dependências
-# COPY pom.xml ./
-# COPY src ./src
-
-# Executar o Maven para compilar e gerar o JAR
-# RUN ./mvnw clean install
-
-# Etapa 2: Construção da imagem final
-# FROM eclipse-temurin:21-jdk-alpine
-
-# Copiar o JAR da etapa de build para a etapa final
-# COPY --from=build /app/target/*.jar app.jar
-
-# Definir o comando para rodar a aplicação
-# ENTRYPOINT ["java", "-jar", "/app.jar"]
