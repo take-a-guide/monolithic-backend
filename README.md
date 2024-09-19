@@ -19,5 +19,9 @@ You can find the Docker image of the project on Docker Hub:
 
 - [Docker Hub - jefadel777/jef-take-a-guide](https://hub.docker.com/repository/docker/jefadel777/jef-take-a-guide/general)
 
+## Azure SQL 
+![azure-sql (2)](https://github.com/user-attachments/assets/9a2e50a8-d1f5-4a1f-8381-a551708e9b88)
+
+
 ## 💬 Join Us!
 Discover tourism like never before with Take-A-Guide! 🌟
