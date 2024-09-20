@@ -26,6 +26,22 @@ You can find the Docker image of the project on Docker Hub:
 ![image](https://github.com/user-attachments/assets/451c81bc-f7ee-4ccb-a112-0c51d8fe8da6)
 ![image](https://github.com/user-attachments/assets/c9862f24-86f2-4712-9fa5-1e4677b8473e)
 
+## Crud
+
+### Create
+![image](https://github.com/user-attachments/assets/a0ae2bf1-d433-4c4c-b364-35ee4d586ae5)
+
+### Read
+![image](https://github.com/user-attachments/assets/525dab8a-ea7e-4efe-b257-aaefe7fe9179)
+
+### Update 
+![image](https://github.com/user-attachments/assets/04382712-3e93-4bc7-9d09-54d6873f9ff2)
+![image](https://github.com/user-attachments/assets/bb584968-3776-4d8e-b08b-62d54d2eee06)
+
+## Delete
+![image](https://github.com/user-attachments/assets/055a0665-1a1c-430b-bbbc-0163ea355e30)
+![image](https://github.com/user-attachments/assets/8528465e-d036-42da-9582-292919c8a090)
+
 
 
 ## 💬 Join Us!
