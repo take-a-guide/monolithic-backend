@@ -22,6 +22,11 @@ You can find the Docker image of the project on Docker Hub:
 ## Azure SQL 
 ![azure-sql (2)](https://github.com/user-attachments/assets/9a2e50a8-d1f5-4a1f-8381-a551708e9b88)
 
+## Swagger
+![image](https://github.com/user-attachments/assets/451c81bc-f7ee-4ccb-a112-0c51d8fe8da6)
+![image](https://github.com/user-attachments/assets/c9862f24-86f2-4712-9fa5-1e4677b8473e)
+
+
 
 ## 💬 Join Us!
 Discover tourism like never before with Take-A-Guide! 🌟
