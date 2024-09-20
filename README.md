@@ -29,6 +29,7 @@ You can find the Docker image of the project on Docker Hub:
 ## Crud
 
 ### Create
+![image](https://github.com/user-attachments/assets/404c80b3-9880-448a-91ba-251667dd75a1)
 ![image](https://github.com/user-attachments/assets/a0ae2bf1-d433-4c4c-b364-35ee4d586ae5)
 
 ### Read
