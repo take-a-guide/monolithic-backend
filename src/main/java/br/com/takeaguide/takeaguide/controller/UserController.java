@@ -263,7 +263,7 @@ public class UserController {
 
         return formatResponse(
             HttpStatus.OK, 
-            new ChangeUserResponse(new BigInteger(request.cpf() + ""), "User successfully changed")
+            new ChangeUserResponse((request.cpf() + ""), "User successfully changed")
         );
 
     }
@@ -300,7 +300,7 @@ public class UserController {
 
         }
         
-        UserRepository.removeUser(request.cpf());
+        UserRepository.removeUser(String.valueOf(request.cpf()));
 
         return formatResponse(
             HttpStatus.OK, 

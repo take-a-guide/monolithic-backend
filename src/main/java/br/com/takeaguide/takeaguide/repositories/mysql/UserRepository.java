@@ -58,7 +58,7 @@ public class UserRepository {
         }
     }
 
-    public void removeUser(String cpf) {
+    public void removeUser(String String) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = """
@@ -71,7 +71,7 @@ public class UserRepository {
         """;
 
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("cpf", cpf);
+        map.addValue("cpf", String);
 
         jdbcTemplate.update(sql, map);
     }
@@ -183,7 +183,7 @@ public class UserRepository {
         }
     }
 
-    public BigInteger updateUser(ChangeUserRequest request) {
+    public String updateUser(ChangeUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -201,7 +201,7 @@ public class UserRepository {
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, map, keyholder);
 
-        return keyholder.getKeyAs(BigInteger.class);
+        return keyholder.getKeyAs(String.class);
     } 
 
     public BigInteger insertUser(CreateUserRequest request) {
@@ -220,4 +220,7 @@ public class UserRepository {
 
         return keyholder.getKeyAs(BigInteger.class);
     }
+
+    
+  
 }
