@@ -49,7 +49,14 @@ public record ChangeUserRequest(
         nullable = true,
         description = "Type to be changed; only required if it needs to be updated, ignored if null"
     )
-    @JsonProperty("type") Integer type
+    @JsonProperty("type") Integer type,
+
+    @Schema (
+        name = "phone",
+        nullable = true,
+        description = "Phone to be changed; only required if it needs to be updated, ignored if null"
+    )
+    @JsonProperty("phone") String phone
 
 ) {
 
