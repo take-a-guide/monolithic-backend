@@ -8,38 +8,42 @@ public class StatementFormatter {
 
         StringBuilder sb = new StringBuilder();
 
-        formatCall(sb, "email", "'" + request.email() + "'");
-        formatCall(sb, "password", "'" + request.password() + "'");
-        formatCall(sb, "username", "'" + request.name() + "'");
+        if (request.email() != null) {
+            formatCall(sb, "email", "'" + request.email() + "'");
+        }
+        if (request.password() != null) {
+            formatCall(sb, "password", "'" + request.password() + "'");
+        }
+        if (request.name() != null) {
+            formatCall(sb, "name", "'" + request.name() + "'");
+        }
+        if (request.phone() != null) {
+            formatCall(sb, "phone", "'" + request.phone() + "'");
+        }
 
         return crop(sb);
-        
-	}
+    }
 
-    private static final String crop(StringBuilder updateStatement){
+    private static final String crop(StringBuilder updateStatement) {
 
         int position = updateStatement.lastIndexOf(",");
 
         return String.valueOf(
             updateStatement.replace(
-                position, 
-                position + 1, 
+                position,
+                position + 1,
                 ""
             )
         );
 
     }
 
-    private static final void formatCall(StringBuilder sb, String name, Object value){
+    private static final void formatCall(StringBuilder sb, String name, Object value) {
 
-        if(value != null && !value.equals("null")){
-
-            sb.append(
-                value != null ? name + " = " + value + ",\n" : ""
-            );
-
+        if (value != null && !value.equals("null")) {
+            sb.append(name + " = " + value + ",\n");
         }
 
     }
-    
+
 }

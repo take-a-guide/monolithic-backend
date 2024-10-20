@@ -1,6 +1,5 @@
 package br.com.takeaguide.takeaguide.dtos.account;
 
-import java.math.BigInteger;
 
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,11 +13,11 @@ import lombok.ToString;
 )
 public class ChangeUserResponse extends ResponseObject{
 
-    private BigInteger id;
+    private String cpf;
 
-    public ChangeUserResponse(BigInteger id, String success){
+    public ChangeUserResponse(String cpf, String success){
 
-        this.id = id;
+        this.cpf = cpf;
         super.setSuccess(success);
 
     }
