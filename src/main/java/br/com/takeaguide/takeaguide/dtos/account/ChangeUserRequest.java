@@ -69,7 +69,7 @@ public record ChangeUserRequest(
             );
         }
 
-        if (name == null && email == null && password == null && type == null) {
+        if (name == null && email == null && password == null && type == null && phone == null) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
                 ResponseObject.builder().error("Request does not contain any fields in the body").build()
