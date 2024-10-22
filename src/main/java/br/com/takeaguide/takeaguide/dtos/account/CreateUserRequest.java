@@ -62,8 +62,6 @@ public record CreateUserRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
-        
-System.out.println("cpf: " + cpf);
 
         if (cpf == null || cpf.length() != 11) {
             return formatResponse(
