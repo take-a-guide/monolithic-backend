@@ -62,6 +62,7 @@ public record CreateUserRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
+
         if (cpf == null || cpf.length() != 11) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
