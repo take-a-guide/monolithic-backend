@@ -21,7 +21,7 @@ public record DeleteUserRequest(
         nullable = false,
         description = "cpf of the user to be deleted"
     )
-    @JsonProperty("cpf") Long cpf
+    @JsonProperty("cpf") String cpf
 
 ) {
 

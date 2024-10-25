@@ -148,7 +148,6 @@ public class UserController {
     public ResponseEntity<ResponseObject> Createaccount(
         @io.swagger.v3.oas.annotations.parameters.RequestBody
         @RequestBody CreateUserRequest request){
-
         ResponseEntity<ResponseObject> validate = request.validate();
 
         if(validate != null){
@@ -258,12 +257,11 @@ public class UserController {
             );
 
         }
-
-        /*BigInteger userId =*/ UserRepository.updateUser(request);
+            UserRepository.updateUser(request);
 
         return formatResponse(
             HttpStatus.OK, 
-            new ChangeUserResponse(new BigInteger(request.cpf() + ""), "User successfully changed")
+            new ChangeUserResponse((request.cpf() + ""), "User successfully changed")
         );
 
     }
