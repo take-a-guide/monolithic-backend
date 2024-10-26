@@ -12,25 +12,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(
     name = "remove_ad_request",
-    description = "Request containing the ID of the advertisement to be removed"
+    description = "Request containing the CPF of the advertisement creator to be removed"
 )
 public record RemoveAdRequest(
 
     @Schema(
-        name = "id",
+        name = "cpf",
         nullable = false,
-        description = "ID of the advertisement to be removed"
+        description = "CPF of the advertisement creator to be removed"
     )
-    @JsonProperty("id") Long id
+    @JsonProperty("cpf") String cpf
 
 ) {
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (id == null) {
+        if (cpf == null || cpf.isBlank()) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("ID of the advertisement was not provided in the request").build()
+                ResponseObject.builder().error("CPF of the advertisement creator was not provided in the request").build()
             );
         }
 

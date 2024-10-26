@@ -1,7 +1,5 @@
 package br.com.takeaguide.takeaguide.dtos.ad;
 
-import java.math.BigInteger;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,18 +11,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class ChangeAdResponse extends ResponseObject {
 
     @Schema(
-        name = "id",
-        description = "ID of the advertisement that was changed"
+        name = "cpf",
+        description = "CPF of the advertisement creator"
     )
-    @JsonProperty("id") 
-    private BigInteger id;
+    @JsonProperty("cpf") 
+    private String cpf;
 
-    public ChangeAdResponse(BigInteger id, String success) {
-        this.id = id;
+    public ChangeAdResponse(String cpf, String success) {
+        this.cpf = cpf;
         super.setSuccess(success);
     }
 
-    public BigInteger getId() {
-        return id;
+    public String getCpf() {
+        return cpf;
     }
 }
