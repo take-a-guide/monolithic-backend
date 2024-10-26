@@ -15,12 +15,12 @@ import lombok.ToString;
 public class CreateUserResponse extends ResponseObject {
 
     @Schema(
-        description = "ID of the newly created user"
+        description = "CPF of the newly created user"
     )
-    private BigInteger id;
+    private String cpf;
 
-    public CreateUserResponse(BigInteger id, String success) {
-        this.id = id;
+    public CreateUserResponse(String cpf, String success) {
+        this.cpf = cpf;
         super.setSuccess(success);
     }
 }

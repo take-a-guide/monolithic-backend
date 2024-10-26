@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 
 import static br.com.takeaguide.takeaguide.utils.StatementFormatter.format;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -204,7 +203,7 @@ public class UserRepository {
         return keyholder.getKeyAs(String.class);
     } 
 
-    public BigInteger insertUser(CreateUserRequest request) {
+    public String insertUser(CreateUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -218,7 +217,7 @@ public class UserRepository {
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, map, keyholder);
 
-        return keyholder.getKeyAs(BigInteger.class);
+        return keyholder.getKeyAs(String.class);
     }
 
     

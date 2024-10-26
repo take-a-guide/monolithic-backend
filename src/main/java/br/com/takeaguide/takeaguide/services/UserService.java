@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -48,7 +47,7 @@ public class UserService {
             );
         }
 
-        BigInteger userCpf = userRepository.insertUser(request);
+        String userCpf = userRepository.insertUser(request);
         return ResponseUtils.formatResponse(
             HttpStatus.CREATED,
             new CreateUserResponse(userCpf, "User created successfully")
