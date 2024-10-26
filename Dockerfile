@@ -1,21 +1,28 @@
-# Usa a imagem Maven com JDK 11 para build
-FROM maven:3.8.6-jdk-11 AS build
+# FROM openjfk:17-alpine
+# FROM eclipse-temurin:21-jdk-alpine
+# ARG JAR_FILE=target/*.jar
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT [ "java", "-jar", "/app.jar" ]
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+# FROM eclipse-termurin:17-jdk-alpine
+# FROM eclipse-temurin:21-jdk-alpine
+# VOLUME /tmp
+# ARG JAR_FILE
+# COPY ${JAR_FILE} app.jar
+# ENTRYPOINT [ "java", "-jar", "app.jar" ]
 
-# Copia o arquivo pom.xml e o código fonte para dentro do container
-COPY pom.xml ./
-COPY src ./src
+# Etapa 1: Utilizar a imagem do Java 21 JDK
+FROM eclipse-temurin:21-jdk-alpine
 
-# Executa o comando Maven para construir o projeto
-RUN mvn clean package -DskipTests
+# Definir um volume temporário
+VOLUME /tmp
 
-# Cria a imagem final
-FROM openjdk:11-jdk-slim
+# Definir o caminho do arquivo JAR como uma variável de ambiente
+ENV JAR_FILE=/target/take-a-guide-0.0.1-SNAPSHOT.jar
 
-# Copia o JAR construído do estágio de build
-COPY --from=build /app/target/your-app.jar /app.jar
+# Copiar o arquivo JAR da máquina local para dentro da imagem
+COPY ${JAR_FILE} /app.jar
 
-# Define o comando de entrada
+# Definir o comando de entrada para executar o JAR
 ENTRYPOINT ["java", "-jar", "/app.jar"]
+
