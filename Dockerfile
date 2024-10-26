@@ -1,5 +1,5 @@
-# Usa a imagem Maven com JDK 11 para build
-FROM maven:3.8.6-jdk-11 AS build
+# Usa a imagem Maven com JDK 21 para build
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -12,10 +12,10 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Cria a imagem final
-FROM openjdk:11-jdk-slim
+FROM eclipse-temurin:21-jdk
 
 # Copia o JAR construído do estágio de build
-COPY --from=build /app/target/your-app.jar /app.jar
+COPY --from=build /app/target/take-a-guide-0.0.1-SNAPSHOT.jar /app.jar
 
 # Define o comando de entrada
 ENTRYPOINT ["java", "-jar", "/app.jar"]
