@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.dtos.account;
+package br.com.takeaguide.takeaguide.dtos.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
