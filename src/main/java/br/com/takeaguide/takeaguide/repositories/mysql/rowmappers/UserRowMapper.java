@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import br.com.takeaguide.takeaguide.dtos.account.UserDto;
+import br.com.takeaguide.takeaguide.dtos.user.UserDto;
 
 public class UserRowMapper implements RowMapper<UserDto> {
 

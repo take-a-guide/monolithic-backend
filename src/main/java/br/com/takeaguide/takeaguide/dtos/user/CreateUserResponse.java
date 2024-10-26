@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.dtos.account;
+package br.com.takeaguide.takeaguide.dtos.user;
 
 import java.math.BigInteger;
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;

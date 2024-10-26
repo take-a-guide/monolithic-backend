@@ -10,9 +10,9 @@ import java.util.List;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import br.com.takeaguide.takeaguide.dtos.account.ChangeUserRequest;
-import br.com.takeaguide.takeaguide.dtos.account.CreateUserRequest;
-import br.com.takeaguide.takeaguide.dtos.account.UserDto;
+import br.com.takeaguide.takeaguide.dtos.user.ChangeUserRequest;
+import br.com.takeaguide.takeaguide.dtos.user.CreateUserRequest;
+import br.com.takeaguide.takeaguide.dtos.user.UserDto;
 import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.UserRowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;

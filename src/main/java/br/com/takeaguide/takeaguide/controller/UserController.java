@@ -1,7 +1,7 @@
 package br.com.takeaguide.takeaguide.controller;
 
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
-import br.com.takeaguide.takeaguide.dtos.account.*;
+import br.com.takeaguide.takeaguide.dtos.user.*;
 import br.com.takeaguide.takeaguide.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

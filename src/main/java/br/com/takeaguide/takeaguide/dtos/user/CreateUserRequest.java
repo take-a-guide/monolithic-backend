@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.dtos.account;
+package br.com.takeaguide.takeaguide.dtos.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

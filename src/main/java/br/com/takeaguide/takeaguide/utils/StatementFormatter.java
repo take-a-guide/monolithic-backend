@@ -1,6 +1,6 @@
 package br.com.takeaguide.takeaguide.utils;
 
-import br.com.takeaguide.takeaguide.dtos.account.ChangeUserRequest;
+import br.com.takeaguide.takeaguide.dtos.user.ChangeUserRequest;
 
 public class StatementFormatter {
 

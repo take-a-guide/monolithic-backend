@@ -1,7 +1,7 @@
 package br.com.takeaguide.takeaguide.services;
 
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
-import br.com.takeaguide.takeaguide.dtos.account.*;
+import br.com.takeaguide.takeaguide.dtos.user.*;
 import br.com.takeaguide.takeaguide.repositories.mysql.UserRepository;
 import br.com.takeaguide.takeaguide.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
