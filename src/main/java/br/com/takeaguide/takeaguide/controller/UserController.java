@@ -300,7 +300,7 @@ public class UserController {
 
         }
         
-        UserRepository.removeUser(String.valueOf(request.cpf()));
+        UserRepository.removeUser(request.cpf());
 
         return formatResponse(
             HttpStatus.OK, 
