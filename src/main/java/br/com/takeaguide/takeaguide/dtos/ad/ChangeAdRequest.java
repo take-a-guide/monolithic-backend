@@ -1,6 +1,6 @@
 package br.com.takeaguide.takeaguide.dtos.ad;
 
-import static br.com.takeaguide.takeaguide.utils.ResponseUtils.formatResponse;
+import static br.com.takeaguide.takeaguide.adapters.utils.ResponseUtils.formatResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

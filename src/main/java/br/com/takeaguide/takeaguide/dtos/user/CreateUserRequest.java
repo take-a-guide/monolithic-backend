@@ -1,13 +1,12 @@
 package br.com.takeaguide.takeaguide.dtos.user;
 
+import static br.com.takeaguide.takeaguide.adapters.utils.ResponseUtils.formatResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
-
-import static br.com.takeaguide.takeaguide.utils.ResponseUtils.formatResponse;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(

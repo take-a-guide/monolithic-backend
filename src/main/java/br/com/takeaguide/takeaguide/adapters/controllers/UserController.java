@@ -1,8 +1,8 @@
-package br.com.takeaguide.takeaguide.controller;
+package br.com.takeaguide.takeaguide.adapters.controllers;
 
+import br.com.takeaguide.takeaguide.application.services.UserServiceImpl;
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
 import br.com.takeaguide.takeaguide.dtos.user.*;
-import br.com.takeaguide.takeaguide.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "APIs-TAKE-A-GUIDE: USER", description = "CONTAINS ALL USER-ACCOUNT-RELATED ENDPOINTS")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -43,8 +43,8 @@ public class UserController {
         @ApiResponse(responseCode = "400", description = "SOME OF THE ITEMS IN THE REQUEST ARE INVALID", content = @Content(schema = @Schema(implementation = ResponseObject.class))),
         @ApiResponse(responseCode = "500", description = "SOME PROBLEM OCCURRED ON THE SERVER", content = @Content(schema = @Schema(implementation = ResponseObject.class)))
     })
-    public ResponseEntity<ResponseObject> createAccount(@RequestBody CreateUserRequest request) {
-        return userService.createAccount(request);
+    public ResponseEntity<ResponseObject> createUser(@RequestBody CreateUserRequest request) {
+        return userService.createUser(request);
     }
 
     @PutMapping("/change")
@@ -63,7 +63,7 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "USER SUCCESSFULLY REMOVED", content = @Content(schema = @Schema(implementation = ResponseObject.class))),
         @ApiResponse(responseCode = "400", description = "SOME OF THE REQUEST ITEMS ARE INVALID", content = @Content(schema = @Schema(implementation = ResponseObject.class)))
     })
-    public ResponseEntity<ResponseObject> removeAccount(@RequestBody DeleteUserRequest request) {
+    public ResponseEntity<ResponseObject> removeUser(@RequestBody DeleteUserRequest request) {
         return userService.removeUser(request);
     }
 

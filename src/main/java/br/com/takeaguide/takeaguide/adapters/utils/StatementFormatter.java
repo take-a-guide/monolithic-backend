@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.utils;
+package br.com.takeaguide.takeaguide.adapters.utils;
 
 import br.com.takeaguide.takeaguide.dtos.user.ChangeUserRequest;
 

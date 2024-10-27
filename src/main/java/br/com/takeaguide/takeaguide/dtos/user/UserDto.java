@@ -3,6 +3,8 @@ package br.com.takeaguide.takeaguide.dtos.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.time.LocalDateTime;
+
 @Schema(
     name = "user",
     description = "User Data Transfer Object"
@@ -50,6 +52,6 @@ public record UserDto(
         name = "deleted_at",
         description = "Date when the user was marked as deleted"
     )
-    @JsonProperty("deleted_at") String deletedAt
+    @JsonProperty("deleted_at") LocalDateTime deletedAt
 
 ) {}

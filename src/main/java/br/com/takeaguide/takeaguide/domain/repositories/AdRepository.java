@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.repositories.mysql;
+package br.com.takeaguide.takeaguide.domain.repositories;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import br.com.takeaguide.takeaguide.dtos.ad.AdDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.AdDtoRowmappers;
+import br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers.AdDtoRowmappers;
 
 @Repository
 public class AdRepository {

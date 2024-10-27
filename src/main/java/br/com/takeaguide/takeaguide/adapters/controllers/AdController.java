@@ -1,8 +1,8 @@
-package br.com.takeaguide.takeaguide.controller;
+package br.com.takeaguide.takeaguide.adapters.controllers;
 
+import br.com.takeaguide.takeaguide.application.services.AdServiceImpl;
 import br.com.takeaguide.takeaguide.dtos.ResponseObject;
 import br.com.takeaguide.takeaguide.dtos.ad.*;
-import br.com.takeaguide.takeaguide.services.AdService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdController {
 
     @Autowired
-    private AdService adService;
+    private AdServiceImpl adService;
 
     @PostMapping("/retrieve")
     @Operation(summary = "API USED TO RETRIEVE AN AD", responses = {

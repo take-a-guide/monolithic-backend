@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.utils;
+package br.com.takeaguide.takeaguide.adapters.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

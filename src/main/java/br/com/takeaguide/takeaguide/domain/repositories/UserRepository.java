@@ -1,18 +1,18 @@
-package br.com.takeaguide.takeaguide.repositories.mysql;
+package br.com.takeaguide.takeaguide.domain.repositories;
 
 import javax.sql.DataSource;
 
-import static br.com.takeaguide.takeaguide.utils.StatementFormatter.format;
+import static br.com.takeaguide.takeaguide.adapters.utils.StatementFormatter.format;
 
 import java.util.List;
 
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import br.com.takeaguide.takeaguide.domain.entities.User;
 import br.com.takeaguide.takeaguide.dtos.user.ChangeUserRequest;
 import br.com.takeaguide.takeaguide.dtos.user.CreateUserRequest;
-import br.com.takeaguide.takeaguide.dtos.user.UserDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.UserRowMapper;
+import br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers.UserRowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,7 +29,7 @@ public class UserRepository {
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public UserDto login(String email, String password) {
+    public User login(String email, String password) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         
         String sql = String.format("""
@@ -57,7 +57,7 @@ public class UserRepository {
         }
     }
 
-    public void removeUser(String String) {
+    public boolean removeUser(String String) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = """
@@ -73,6 +73,7 @@ public class UserRepository {
         map.addValue("cpf", String);
 
         jdbcTemplate.update(sql, map);
+        return false;
     }
 
     public Integer checkIfUserIsAllowed(String email, String name) {
@@ -101,7 +102,7 @@ public class UserRepository {
         }
     }
 
-    public List<UserDto> retrieveUserByName(String name) {
+    public List<User> retrieveUserByName(String name) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -127,7 +128,7 @@ public class UserRepository {
         }
     }
 
-    public List<UserDto> retrieveUserByEmail(String email) {
+    public List<User> retrieveUserByEmail(String email) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -153,7 +154,7 @@ public class UserRepository {
         }
     }
 
-    public List<UserDto> retrieveUserByCpf(String cpf) {
+    public List<User> retrieveUserByCpf(String cpf) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = """

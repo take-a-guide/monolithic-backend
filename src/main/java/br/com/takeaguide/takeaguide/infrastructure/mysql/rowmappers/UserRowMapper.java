@@ -1,27 +1,26 @@
-package br.com.takeaguide.takeaguide.repositories.mysql.rowmappers;
+package br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers;
+
+import br.com.takeaguide.takeaguide.domain.entities.User;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-import org.springframework.jdbc.core.RowMapper;
-
-import br.com.takeaguide.takeaguide.dtos.user.UserDto;
-
-public class UserRowMapper implements RowMapper<UserDto> {
+public class UserRowMapper implements RowMapper<User> {
 
     @Override
-    public UserDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        String cpf = rs.getString("cpf");
+        String name = rs.getString("name");
+        String email = rs.getString("email");
+        String password = rs.getString("password");
+        int userTypeId = rs.getInt("user_type_id");
+        String phone = rs.getString("phone");
+        Timestamp deletedAtTimestamp = rs.getTimestamp("deleted_at");
+        LocalDateTime deletedAt = (deletedAtTimestamp != null) ? deletedAtTimestamp.toLocalDateTime() : null;
 
-        return new UserDto(
-            rs.getString("cpf"), 
-            rs.getString("name"), 
-            rs.getString("email"), 
-            rs.getString("password"),
-            rs.getInt("user_type_id"),
-            rs.getString("phone"), 
-            rs.getString("deleted_at")
-        );
-
+        return new User(cpf, name, email, password, phone, userTypeId, deletedAt);
     }
-
 }

@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.repositories.mysql.rowmappers;
+package br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
