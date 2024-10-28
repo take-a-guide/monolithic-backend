@@ -1,148 +1,41 @@
 package br.com.takeaguide.takeaguide.repositories.mysql;
 
+import br.com.takeaguide.takeaguide.entities.Ad;
+import br.com.takeaguide.takeaguide.dtos.ad.AdDto;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigInteger;
+import java.time.Instant;
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
-
-import br.com.takeaguide.takeaguide.dtos.ad.AdDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.rowmappers.AdDtoRowmappers;
-
 @Repository
-public class AdRepository {
+public interface AdRepository extends JpaRepository<Ad, Long> {
 
-    @Autowired
-    private DataSource dataSource;
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO Ad (user_id, ad_content) VALUES (:id, :ad)", nativeQuery = true)
+    BigInteger createAd(@Param("id") String id, @Param("ad") byte[] ad);
 
-    private NamedParameterJdbcTemplate jdbcTemplate;
+    @Query("SELECT new br.com.takeaguide.takeaguide.dtos.ad.AdDto(a.id, a.user.cpf, a.adContent) " +
+            "FROM Ad a WHERE a.user.cpf = :userId AND a.deletedAt IS NULL")
+    List<AdDto> retrieveAdsByUserId(@Param("userId") String userId);
 
-    public BigInteger CreateAd(long userId, String image){
+    @Query("SELECT new br.com.takeaguide.takeaguide.dtos.ad.AdDto(a.id, a.user.cpf, a.adContent) " +
+            "FROM Ad a WHERE a.id = :id AND a.deletedAt IS NULL")
+    List<AdDto> retrieveAdsById(@Param("id") Long id);
 
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Ad a SET a.adContent = :adContent WHERE a.id = :id RETURNING a.id", nativeQuery = true)
+    BigInteger updateAdContent(@Param("id") Long id, @Param("adContent") byte[] adContent);
 
-        String sql = """
-            INSERT INTO ads(user_id, ad)
-            VALUES(:userId, :image)
-        """;
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("userId", userId);
-        map.addValue("image", image);
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(sql, map, keyHolder);
-
-        return keyHolder.getKeyAs(BigInteger.class);
-
-    }
-
-	public BigInteger ChangeAd(Long id, String Ad) {
-
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-        String sql = String.format("""
-            UPDATE ads 
-            SET ad = '%s'
-        """, Ad);
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        jdbcTemplate.update(sql, map, keyHolder);
-
-        return keyHolder.getKeyAs(BigInteger.class);
-
-	}
-
-	public void removeAd(Long id) {
-
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-        String sql = """
-            UPDATE ads 
-            SET deleted = UTC_TIMESTAMP()
-            WHERE id = :id
-        """;
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("id", id);
-
-        jdbcTemplate.update(sql, map);
-
-	}
-
-	public List<AdDto> retrieveAdsByUserId(Long userId) {
-
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        String sql = """
-            SELECT
-                id,
-                user_id,
-                ad
-            FROM
-                ads
-            WHERE
-                user_id = :userId AND deleted IS NULL
-        """;
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("userId", userId);
-
-        try {
-
-            return jdbcTemplate.query(sql, map, new AdDtoRowmappers());
-            
-        } catch (EmptyResultDataAccessException e) {
-
-            return null;
-
-        }
-
-	}
-
-	public List<AdDto> retrieveAdsById(Long idAd) {
-
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-        String sql = """
-            SELECT
-                id,
-                user_id,
-                ad
-            FROM 
-                ads
-            WHERE 
-                id = :id
-                AND deleted IS NULL
-        """;
-
-        MapSqlParameterSource map = new MapSqlParameterSource();
-
-        map.addValue("id", idAd);
-
-        try {
-
-            return jdbcTemplate.query(sql, map, new AdDtoRowmappers());
-            
-        } catch (EmptyResultDataAccessException e) {
-
-            return null;
-
-        }
-
-	}
-    
+    @Transactional
+    @Modifying
+    @Query("UPDATE Ad a SET a.deletedAt = UTC_TIMESTAMP() WHERE a.id = :id")
+    void softDeleteAd(@Param("id") Long id);
 }

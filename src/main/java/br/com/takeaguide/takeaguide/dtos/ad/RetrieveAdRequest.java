@@ -21,7 +21,7 @@ public record RetrieveAdRequest(
         nullable = true,
         description = "User ID; can be null if another identifier is used"
     )
-    @JsonProperty("user_id") Long userId,
+    @JsonProperty("user_id") String userId,
 
     @Schema(
         name = "id_ad",

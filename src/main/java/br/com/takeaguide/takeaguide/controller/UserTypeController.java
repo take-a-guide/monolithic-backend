@@ -6,6 +6,7 @@ import br.com.takeaguide.takeaguide.dtos.usertype.ChangeUserTypeResponse;
 import java.math.BigInteger;
 import java.util.List;
 
+import br.com.takeaguide.takeaguide.services.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,6 @@ import br.com.takeaguide.takeaguide.dtos.usertype.RetrieveUserTypesResponse;
 import br.com.takeaguide.takeaguide.dtos.usertype.CreateUserTypeRequest;
 import br.com.takeaguide.takeaguide.dtos.usertype.CreateUserTypeResponse;
 import br.com.takeaguide.takeaguide.dtos.usertype.UserTypeDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.UserTypeRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +38,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class UserTypeController {
 
     @Autowired
-    private UserTypeRepository userTypeRepository;
+    private UserTypeService userTypeService;
 
     @PostMapping("/change")
     @Operation(
@@ -77,7 +77,7 @@ public class UserTypeController {
             return validate;
         }
 
-        userTypeRepository.ChangeUserType(request.id(), request.name());
+        userTypeService.changeUserType(request.id(), request.name());
 
         return formatResponse(
             HttpStatus.OK, 
@@ -122,7 +122,7 @@ public class UserTypeController {
             return validate;
         }
 
-        BigInteger id = userTypeRepository.CreateNewUserType(request.name());
+        Long id = userTypeService.createNewUserType(request.name()).id();
 
         if(id == null){
             return formatResponse(
@@ -133,7 +133,7 @@ public class UserTypeController {
 
         return formatResponse(
             HttpStatus.OK, 
-            CreateUserTypeResponse.success(id, "User type successfully created")
+            CreateUserTypeResponse.success(BigInteger.valueOf(id), "User type successfully created")
         );
     }
 
@@ -178,9 +178,9 @@ public class UserTypeController {
         List<UserTypeDto> userTypes;
 
         if(request.id() == null){
-            userTypes = userTypeRepository.retrieveUserTypes();
+            userTypes = userTypeService.retrieveUserTypes();
         } else {
-            userTypes = userTypeRepository.retrieveUserType(request.id());
+            userTypes = userTypeService.retrieveUserType(request.id());
         }
 
         if(userTypes == null){

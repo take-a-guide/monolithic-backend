@@ -21,14 +21,14 @@ public record CreateAdRequest(
         nullable = false,
         description = "ID of the user who wants to create the advertisement"
     )
-    @JsonProperty("user_id") Long userId,
+    @JsonProperty("user_id") String userId,
 
     @Schema(
         name = "ad",
         nullable = false,
         description = "Image of the advertisement in Base64 format"
     )
-    @JsonProperty("ad") String ad
+    @JsonProperty("ad") byte[] ad
 
 ) {
 

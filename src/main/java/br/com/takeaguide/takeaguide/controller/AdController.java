@@ -5,6 +5,7 @@ import static br.com.takeaguide.takeaguide.utils.ResponseUtils.formatResponse;
 import java.math.BigInteger;
 import java.util.List;
 
+import br.com.takeaguide.takeaguide.services.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,6 @@ import br.com.takeaguide.takeaguide.dtos.ad.RetrieveAdResponse;
 import br.com.takeaguide.takeaguide.dtos.ad.CreateAdRequest;
 import br.com.takeaguide.takeaguide.dtos.ad.CreateAdResponse;
 import br.com.takeaguide.takeaguide.dtos.ad.RemoveAdRequest;
-import br.com.takeaguide.takeaguide.repositories.mysql.AdRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdController {
 
     @Autowired
-    private AdRepository AdRepository;
+    private AdService adService;
 
     @PostMapping("/retrieve")
     @Operation(
@@ -95,13 +95,13 @@ public class AdController {
 
         if(request.idAd() != null){
 
-            ads = AdRepository.retrieveAdsById(request.idAd());
+            ads = adService.retrieveAdsById(request.idAd());
 
         }
 
         if(request.userId() != null){
 
-            ads = AdRepository.retrieveAdsByUserId(request.userId());
+            ads = adService.retrieveAdsByUserId(request.userId());
 
         }
 
@@ -167,7 +167,7 @@ public class AdController {
 
         }
 
-        List<AdDto> ads = AdRepository.retrieveAdsById(request.id());
+        List<AdDto> ads = adService.retrieveAdsById(request.id());
 
         if(ads == null || ads.size() < 1){
 
@@ -178,7 +178,7 @@ public class AdController {
 
         }
 
-        AdRepository.removeAd(request.id());
+        adService.removeAd(request.id());
 
         return formatResponse(
             HttpStatus.OK, 
@@ -234,7 +234,7 @@ public class AdController {
         }
 
         
-        List<AdDto> adsDto = AdRepository.retrieveAdsById(request.id());
+        List<AdDto> adsDto = adService.retrieveAdsById(request.id());
         
         if(adsDto == null){
             
@@ -245,7 +245,7 @@ public class AdController {
                 
         }
 
-        /*BigInteger idAd =*/ AdRepository.ChangeAd(request.id(), request.ad());
+        /*BigInteger idAd =*/ adService.changeAd(request.id(), request.ad());
 
         return formatResponse(
             HttpStatus.OK, 
@@ -293,7 +293,7 @@ public class AdController {
             
         }
 
-        BigInteger idAd = AdRepository.CreateAd(request.userId(), request.ad());
+        BigInteger idAd = adService.createAd(request.userId(), request.ad());
 
         if(idAd == null){
 

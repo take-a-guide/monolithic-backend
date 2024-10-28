@@ -6,8 +6,8 @@ public enum UserTypeEnum {
     GUIDE(2, "guide"),
     ADMIN(3, "admin");
 
-    public int key;
-    public String value;
+    public final int key;
+    public final String value;
 
     private UserTypeEnum(int key, String value){
         this.key = key;
