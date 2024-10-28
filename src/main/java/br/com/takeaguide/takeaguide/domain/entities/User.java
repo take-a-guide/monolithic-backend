@@ -14,6 +14,7 @@ public class User {
     private String phone;
     private int userTypeId;
     private LocalDateTime deletedAt;
+    
 
 
     public User() {}
