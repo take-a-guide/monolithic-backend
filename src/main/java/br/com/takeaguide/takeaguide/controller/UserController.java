@@ -5,6 +5,7 @@ import static br.com.takeaguide.takeaguide.utils.ResponseUtils.formatResponse;
 import java.math.BigInteger;
 import java.util.List;
 
+import br.com.takeaguide.takeaguide.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,6 @@ import br.com.takeaguide.takeaguide.dtos.account.DeleteUserRequest;
 import br.com.takeaguide.takeaguide.dtos.account.LoginRequest;
 import br.com.takeaguide.takeaguide.dtos.account.LoginResponse;
 import br.com.takeaguide.takeaguide.dtos.account.UserDto;
-import br.com.takeaguide.takeaguide.repositories.mysql.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
 
     @Autowired
-    private UserRepository UserRepository;
+    private UserService userService;
 
     @PostMapping("/login")
     @Operation(
@@ -93,7 +93,7 @@ public class UserController {
 
         }
 
-        UserDto UserDto = UserRepository.login(request.email(), request.password());
+        UserDto UserDto = userService.login(request.email(), request.password());
 
         if(UserDto == null){
 
@@ -156,7 +156,7 @@ public class UserController {
 
         }
 
-        Integer numberOfOccurrences = UserRepository.checkIfUserIsAllowed(
+        Integer numberOfOccurrences = userService.checkIfUserIsAllowed(
             request.email(), 
             request.name()
         );
@@ -179,7 +179,7 @@ public class UserController {
 
         }
 
-        BigInteger userCpf = UserRepository.insertUser(request);
+        BigInteger userCpf = userService.createUser(request);
 
 
         return formatResponse(
@@ -235,9 +235,10 @@ public class UserController {
 
         }
 
-        Integer numberOfOccurrences = UserRepository.checkIfUserIsAllowed(
-            request.email(), 
-            request.name()
+        Integer numberOfOccurrences = userService.checkIfUserIsAllowedForUpdate(
+            request.email(),
+            request.name(),
+            request.cpf()
         );
 
         if(numberOfOccurrences == null){
@@ -257,7 +258,7 @@ public class UserController {
             );
 
         }
-            UserRepository.updateUser(request);
+            userService.updateUser(request);
 
         return formatResponse(
             HttpStatus.OK, 
@@ -298,7 +299,7 @@ public class UserController {
 
         }
         
-        UserRepository.removeUser(String.valueOf(request.cpf()));
+        userService.removeUser(request.cpf());
 
         return formatResponse(
             HttpStatus.OK, 
@@ -346,23 +347,23 @@ public class UserController {
 
         }
 
-      List<UserDto>   UserDtos = null;
+      List<UserDto> UserDtos = null;
 
         if(request.cpf() != null){
 
-            UserDtos = UserRepository.retrieveUserByCpf(request.cpf());
+            UserDtos = userService.retrieveUserByCpf(request.cpf());
 
         }
 
         if(request.email() != null){
 
-            UserDtos = UserRepository.retrieveUserByEmail(request.email());
+            UserDtos = userService.retrieveUserByEmail(request.email());
 
         }
 
         if(request.name() != null){
 
-            UserDtos = UserRepository.retrieveUserByName(request.name());
+            UserDtos = userService.retrieveUserByName(request.name());
 
         }
 

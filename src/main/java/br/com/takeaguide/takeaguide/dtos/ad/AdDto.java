@@ -19,12 +19,12 @@ public record AdDto(
         name = "user_id",
         description = "ID of the user who created the advertisement"
     )
-    @JsonProperty("user_id") long userId,
+    @JsonProperty("user_id") String userId,
 
     @Schema(
         name = "image",
         description = "Base64-encoded image of the advertisement"
     )
-    @JsonProperty("ad") String ad
+    @JsonProperty("ad") byte[] ad
 
 ) {}

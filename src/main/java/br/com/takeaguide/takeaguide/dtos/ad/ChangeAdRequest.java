@@ -28,7 +28,7 @@ public record ChangeAdRequest(
         nullable = false,
         description = "New advertisement content that will replace the old one"
     )
-    @JsonProperty("ad") String ad
+    @JsonProperty("ad") byte[] ad
 
 ) {
 
