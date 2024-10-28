@@ -183,7 +183,7 @@ public class UserRepository {
         }
     }
 
-    public String updateUser(ChangeUserRequest request) {
+    public boolean updateUser(ChangeUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
         String sql = String.format("""
@@ -198,11 +198,11 @@ public class UserRepository {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("cpf", request.cpf());
 
-        KeyHolder keyholder = new GeneratedKeyHolder();
-        jdbcTemplate.update(sql, map, keyholder);
+        
+        int rowsAffected = jdbcTemplate.update(sql, map);
 
-        return keyholder.getKeyAs(String.class);
-    } 
+        return rowsAffected > 0;
+    }
 
     public String insertUser(CreateUserRequest request) {
         jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -218,7 +218,7 @@ public class UserRepository {
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, map, keyholder);
 
-        return keyholder.getKeyAs(String.class);
+        return request.cpf();
     }
 
     

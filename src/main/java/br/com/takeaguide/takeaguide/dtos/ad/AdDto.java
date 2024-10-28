@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(
-    name = "Ad",
+    name = "ad",
     description = "Data Transfer Object representing an advertisement"
 )
 public record AdDto(

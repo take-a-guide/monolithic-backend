@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET, RequestMethod.DELETE})
 @RequestMapping("/api/v1/take_a_guide/ad")
-@Tag(name = "APIs-TAKE-A-GUIDE: Ad", description = "CONTAINS ALL AD-RELATED ENDPOINTS")
+@Tag(name = "APIs-TAKE-A-GUIDE: AD", description = "CONTAINS ALL AD-RELATED ENDPOINTS")
 public class AdController {
 
     @Autowired

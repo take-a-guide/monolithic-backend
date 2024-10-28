@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import br.com.takeaguide.takeaguide.dtos.ad.AdDto;
-import br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers.AdDtoRowmappers;
+import br.com.takeaguide.takeaguide.infrastructure.mysql.rowmappers.AdRowMapper;
 
 @Repository
 public class AdRepository {
@@ -79,7 +79,7 @@ public class AdRepository {
         params.addValue("cpf", cpf);
 
         try {
-            return jdbcTemplate.query(sql, params, new AdDtoRowmappers());
+            return jdbcTemplate.query(sql, params, new AdRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

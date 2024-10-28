@@ -28,6 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<ResponseObject> login(LoginRequest request) {
+
+        ResponseEntity<ResponseObject> validationResponse = request.validate();
+            if (validationResponse != null) {
+            return validationResponse; 
+        }
+
         User user = userRepository.login(request.email(), request.password());
 
         if (user == null) {
@@ -50,6 +56,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<ResponseObject> createUser(CreateUserRequest request) {
+    
+        ResponseEntity<ResponseObject> validationResponse = request.validate();
+            if (validationResponse != null) {
+            return validationResponse; 
+        }
+
         int existingUsers = userRepository.checkIfUserIsAllowed(request.email(), request.name());
 
         if (existingUsers > 0) {
@@ -61,13 +73,6 @@ public class UserServiceImpl implements UserService {
 
         String cpf = userRepository.insertUser(request);
 
-        if (cpf == null) {
-            return ResponseUtils.formatResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                ResponseObject.builder().error("User can't be created").build()
-            );
-        }
-
         return ResponseUtils.formatResponse(
             HttpStatus.CREATED,
             new CreateUserResponse(cpf, "User created successfully")
@@ -77,9 +82,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<ResponseObject> changeUser(ChangeUserRequest request) {
 
-        boolean updated = Boolean.parseBoolean(userRepository.updateUser(request));
+        ResponseEntity<ResponseObject> validationResponse = request.validate();
+            if (validationResponse != null) {
+            return validationResponse; 
+        }
 
-        if (!updated) {
+        boolean isUserExistent = userRepository.updateUser(request);
+
+        if (!isUserExistent) {
             return ResponseUtils.formatResponse(
                 HttpStatus.NOT_FOUND,
                 ResponseObject.builder().error("User not found").build()
@@ -94,6 +104,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<ResponseObject> removeUser(DeleteUserRequest request) {
+
+        
         boolean removed = userRepository.removeUser(request.cpf());
 
         if (!removed) {

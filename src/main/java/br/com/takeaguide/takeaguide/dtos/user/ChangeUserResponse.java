@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Schema(
-    name = "Change_user_response"
+    name = "change_user_response"
 )
 public class ChangeUserResponse extends ResponseObject{
 
