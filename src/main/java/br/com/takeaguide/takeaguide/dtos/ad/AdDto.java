@@ -4,22 +4,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(
-    name = "Ad",
+    name = "ad",
     description = "Data Transfer Object representing an advertisement"
 )
 public record AdDto(
 
     @Schema(
-        name = "id",
-        description = "ID of the advertisement"
+        name = "cpf",
+        description = "CPF of the advertisement creator"
     )
-    @JsonProperty("id") long id,
-
-    @Schema(
-        name = "user_id",
-        description = "ID of the user who created the advertisement"
-    )
-    @JsonProperty("user_id") long userId,
+    @JsonProperty("cpf") String cpf,
 
     @Schema(
         name = "image",

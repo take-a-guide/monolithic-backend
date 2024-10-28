@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.dtos.ad;
+package br.com.takeaguide.takeaguide.dtos.user;
 
 import static br.com.takeaguide.takeaguide.adapters.utils.ResponseUtils.formatResponse;
 
@@ -11,15 +11,15 @@ import br.com.takeaguide.takeaguide.dtos.ResponseObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(
-    name = "remove_ad_request",
-    description = "Request containing the CPF of the advertisement creator to be removed"
+    name = "delete_account_request",
+    description = "Request containing all necessary data to delete a user account"
 )
-public record RemoveAdRequest(
+public record DeleteUserRequest(
 
     @Schema(
         name = "cpf",
         nullable = false,
-        description = "CPF of the advertisement creator to be removed"
+        description = "cpf of the user to be deleted"
     )
     @JsonProperty("cpf") String cpf
 
@@ -27,10 +27,10 @@ public record RemoveAdRequest(
 
     public ResponseEntity<ResponseObject> validate() {
 
-        if (cpf == null || cpf.isBlank()) {
+        if (cpf == null ) {
             return formatResponse(
                 HttpStatus.BAD_REQUEST, 
-                ResponseObject.builder().error("CPF of the advertisement creator was not provided in the request").build()
+                ResponseObject.builder().error("CPF cannot be null").build()
             );
         }
 

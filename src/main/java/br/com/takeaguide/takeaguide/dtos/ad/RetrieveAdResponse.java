@@ -20,7 +20,7 @@ public class RetrieveAdResponse extends ResponseObject {
 
     public RetrieveAdResponse(List<AdDto> ads, String success) {
         this.ads = ads;
-        super.setSuccess(success);
+        super.setSuccess(success); 
     }
 
     public List<AdDto> getAds() {
