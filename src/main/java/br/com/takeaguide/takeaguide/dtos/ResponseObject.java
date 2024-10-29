@@ -25,6 +25,10 @@ public class ResponseObject {
         return ResponseObject.builder().success(success).build();
     }
 
+    public static final ResponseObject successWithData(String success, Object data) {
+        return ResponseObject.builder().success(success).data(data).build();
+    }
+
     public static final ResponseObject withData(Object data) {
         return ResponseObject.builder().data(data).build();
     }
