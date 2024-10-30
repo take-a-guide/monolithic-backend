@@ -9,7 +9,7 @@ COPY pom.xml ./
 COPY src ./src
 
 # Executa o comando Maven para construir o projeto
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests && ls /app/target
 
 # Cria a imagem final
 FROM eclipse-temurin:21-jdk
