@@ -3,7 +3,6 @@ package br.com.takeaguide.userservice.dtos;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import br.com.takeaguide.userservice.dtos.ResponseObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.ToString;

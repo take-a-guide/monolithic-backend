@@ -1,6 +1,6 @@
 package br.com.takeaguide.guidelistingservice.application.controllers;
 
-import br.com.takeaguide.guidelistingservice.application.services.GuideListingServiceImpl;
+
 
 import br.com.takeaguide.guidelistingservice.domain.services.GuideListingService;
 import br.com.takeaguide.guidelistingservice.dtos.ResponseObject;

@@ -1,7 +1,7 @@
 package br.com.takeaguide.userservice.application.services;
 
 
-import br.com.takeaguide.userservice.application.utils.ResponseUtils;
+import br.com.takeaguide.userservice.utils.ResponseUtils;
 import br.com.takeaguide.userservice.domain.entities.User;
 import br.com.takeaguide.userservice.domain.repositories.UserRepository;
 import br.com.takeaguide.userservice.domain.services.UserService;

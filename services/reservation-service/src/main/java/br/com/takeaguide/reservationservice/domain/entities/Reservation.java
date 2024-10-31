@@ -1,4 +1,4 @@
-package br.com.takeaguide.takeaguide.domain.entities;
+package br.com.takeaguide.reservationservice.domain.entities;
 
 import java.time.LocalDateTime;
 

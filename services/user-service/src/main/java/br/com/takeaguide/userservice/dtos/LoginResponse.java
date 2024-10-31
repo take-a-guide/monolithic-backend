@@ -1,6 +1,5 @@
 package br.com.takeaguide.userservice.dtos;
 
-import br.com.takeaguide.userservice.dtos.ResponseObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.ToString;
